@@ -1,0 +1,13 @@
+
+body
+  {
+	font-family:Arial, sans-serif;
+	font-size:14px;
+  }
+iframe.Device
+  {
+	position: absolute;
+	border-color: blue;
+	border-width: 30px 10px 10px 10px;
+	border-style: solid;
+  }
