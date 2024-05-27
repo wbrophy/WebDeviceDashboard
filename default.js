@@ -4,6 +4,8 @@ function myFunction(event) {
   document.getElementById("demo").innerHTML = x + ", " + y;
 }
 
+const fnVal = (a) => { return Number(a.substring(0,a.search(/\D/))); }
+
 x_pt =
 	{
 		identifier : null,
@@ -66,14 +68,24 @@ function fnMoveDevice()
 				movementY : (event.type == "touchmove" ? 0 : event.movementY),
 				targetWidth : compStyles.getPropertyValue("width"),
 				targetHeight : compStyles.getPropertyValue("height"),
+				targetBorderTopWidth : compStyles.getPropertyValue("border-top-width"),
+				targetBorderBottomWidth : compStyles.getPropertyValue("border-bottom-width"),
+				targetBorderLeftWidth : compStyles.getPropertyValue("border-left-width"),
+				targetBorderRightWidth : compStyles.getPropertyValue("border-right-width"),
 				translate : compStyles.getPropertyValue("-webkit-transform")
 			}
-		fnv_e.movementX = (fnv_e.type == "touchmove" ? (x_pt.identifier == event.touches[0].identifier ? (fnv_e.clientX-x_pt.clientX):0) : event.movementX);
-		fnv_e.movementY = (fnv_e.type == "touchmove" ? (x_pt.identifier == event.touches[0].identifier ? (fnv_e.clientY-x_pt.clientY):0) : event.movementY);
+		if (fnv_e.type == "touchmove" && x_pt.identifier == event.touches[0].identifier)
+			{
+				fnv_e.movementX = fnv_e.clientX-x_pt.clientX;
+				fnv_e.movementY = fnv_e.clientY-x_pt.clientY;
+				fnv_e.offsetY = fnv_e.clientY-event.target.offsetTop-fnVal(fnv_e.targetBorderTopWidth);
+				fnv_e.offsetX = fnv_e.clientX-event.target.offsetLeft-fnVal(fnv_e.targetBorderLeftWidth);
+			}
 		
-		fnv_width = Number(fnv_e.targetWidth.substring(0,fnv_e.targetWidth.search(/\D/)));
-		fnv_height = Number(fnv_e.targetHeight.substring(0,fnv_e.targetHeight.search(/\D/)));
+		fnv_width = fnVal(fnv_e.targetWidth);
+		fnv_height = fnVal(fnv_e.targetHeight);
 		fnv_border_width = (((event.target.offsetWidth-fnv_width)/2)/2)+fnv_width; //***Fix to accomodate independant border widths
+		
 		fnv_translate = fnv_e.translate;
 		fnv_matrix = fnv_translate.replace("matrix","");
 		fnv_matrix = fnv_matrix.replace("(","");
@@ -93,6 +105,10 @@ function fnMoveDevice()
 					  +"fnv_e.screenY:"+fnv_e.screenY+"\n"
 					  +"fnv_e.movementX:"+fnv_e.movementX+"\n"
 					  +"fnv_e.movementY:"+fnv_e.movementY+"\n"
+					  +"fnv_e.targetBorderTopWidth:"+fnv_e.targetBorderTopWidth+"\n"
+					  +"fnv_e.targetBorderBottomWidth:"+fnv_e.targetBorderBottomWidth+"\n"
+					  +"fnv_e.targetBorderLeftWidth:"+fnv_e.targetBorderLeftWidth+"\n"
+					  +"fnv_e.targetBorderRightWidth:"+fnv_e.targetBorderRightWidth+"\n"
 					  +"fnv_translate:"+fnv_translate+"\n"
 					  +"fnv_matrix:"+fnv_matrix+"\n"
 					  +"fnv_matrix1:"+fnv_matrix1+"\n"
@@ -113,14 +129,13 @@ function fnMoveDevice()
 					  +"width: "+compStyles.getPropertyValue("width")+"\n";
 		document.getElementById("debug_msg").innerText = fnv_message;
 
-		if (event.buttons == 1)
+		if (event.buttons == 1 || (fnv_e.type == "touchmove" && x_pt.identifier == event.touches[0].identifier))
 			{
-
-				if (event.offsetY < 0)
+				if (fnv_e.offsetY < 0)
 					{ // move window
-						event.target.style.left = "" + (event.target.offsetLeft + event.movementX) + "px";
-						event.target.style.top = "" + (event.target.offsetTop + event.movementY) + "px";
-						event.target.style['-webkit-transform'] = 'translate('+(event.movementX)+'px,'+event.movementY+'px)';
+						event.target.style.left = "" + (event.target.offsetLeft + fnv_e.movementX) + "px";
+						event.target.style.top = "" + (event.target.offsetTop + fnv_e.movementY) + "px";
+						//event.target.style['-webkit-transform'] = 'translate('+(event.movementX)+'px,'+event.movementY+'px)';
 					}
 				else if (event.offsetY > 0 && event.offsetX < 0)
 					{ //resize window from left side
