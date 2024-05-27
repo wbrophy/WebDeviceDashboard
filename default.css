@@ -7,7 +7,28 @@ body
 iframe.Device
   {
 	position: absolute;
-	border-color: blue;
-	border-width: 30px 10px 10px 10px;
+	border-color: red;
+	background-color: white;
+	border-width: 50px 10px 10px 10px;
 	border-style: solid;
+	touch-action: none;
+	width: 150px;
+	height: 100px;
+  }
+iframe.SubDevice
+  {
+	touch-action: none;
+	width: 150px;
+	height: 100px;
+  }
+div.Device
+  {
+	position: absolute;
+	border-color: green;
+	background-color: aqua;
+	border-width: 50px 10px 10px 10px;
+	border-style: solid;
+	touch-action: none;
+	width: 150px;
+	height: 100px;
   }

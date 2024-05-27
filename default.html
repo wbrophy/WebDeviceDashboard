@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
 <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
-<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="no-store, no-cache, must-revalidate, max-age=0">
 <html>
 	<head>
-		<link rel="stylesheet" href="default.css">
-		<script src="default.js"></script>
+		<link rel="stylesheet" href="default.css?v=27">
+		<script src="default.js?v=27"></script>
 	</head>
 	<body>
-		<button type="button" value="Submit" onclick="x_Dashboard.AddDevice();">Add Device</button>
+		<p><button type="button" value="Submit" onclick="x_Dashboard.AddDevice();">Add Device</button></p>
+		<div class="Device" ontouchmove="fnMoveDevice()"><iframe class="SubDevice" src="about:blank"></iframe></div>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+		<p id="demo"></p>
 		<span id="debug_msg"></span>
 	</body>
 </html>
