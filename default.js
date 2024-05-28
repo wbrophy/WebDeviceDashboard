@@ -11,14 +11,18 @@ x_Dashboard =
 	{
 		AddDevice : function()	
 			{
-				fnv_iframe = document.createElement("iframe");
-				fnv_iframe.className = "Device";
-				//fnv_iframe.onclick = function() { fnDeviceMenu(); };
-				fnv_iframe.addEventListener("mousemove", fnMoveDevice, false);
-				fnv_iframe.addEventListener("touchmove", fnMoveDevice, false);
-				fnv_Device = document.body.appendChild(fnv_iframe);
-				
 				fnv_iframeURL = prompt("URL:", "about:blank");
+
+				fnv_div = document.createElement("div");
+				fnv_div.className = "Device";
+				fnv_iframe = document.createElement("iframe");
+				fnv_iframe.className = "SubDevice";
+				//fnv_iframe.onclick = function() { fnDeviceMenu(); };
+				fnv_div.appendChild(fnv_iframe);
+				fnv_div.addEventListener("mousemove", fnMoveDevice, false);
+				fnv_div.addEventListener("touchmove", fnMoveDevice, false);
+				fnv_Device = document.body.appendChild(fnv_div);
+				
 				if (fnv_iframeURL != null)
 					{
 						fnv_Device.src = fnv_iframeURL;
@@ -51,7 +55,6 @@ function fnMoveDevice()
 				targetBorderBottomWidth : compStyles.getPropertyValue("border-bottom-width"),
 				targetBorderLeftWidth : compStyles.getPropertyValue("border-left-width"),
 				targetBorderRightWidth : compStyles.getPropertyValue("border-right-width"),
-				translate : compStyles.getPropertyValue("-webkit-transform")
 			}
 		if (fnv_e.type == "touchmove" && x_pt.identifier == event.touches[0].identifier)
 			{
@@ -91,7 +94,7 @@ function fnMoveDevice()
 					  +"top: "+compStyles.getPropertyValue("top")+"\n"
 					  +"height: "+compStyles.getPropertyValue("height")+"\n"
 					  +"width: "+compStyles.getPropertyValue("width")+"\n";
-		document.getElementById("debug_msg").innerText = fnv_message;
+		//document.getElementById("debug_msg").innerText = fnv_message;
 
 		if (event.buttons == 1 || (fnv_e.type == "touchmove" && x_pt.identifier == event.touches[0].identifier))
 			{
