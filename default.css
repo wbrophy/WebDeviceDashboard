@@ -9,11 +9,9 @@ iframe.Device
 	position: absolute;
 	border-color: red;
 	background-color: white;
-	border-width: 50px 10px 10px 10px;
+	border-width: 20px 5px 5px 5px;
 	border-style: solid;
 	touch-action: none;
-	width: 150px;
-	height: 100px;
   }
 iframe.SubDevice
   {
@@ -26,9 +24,7 @@ div.Device
 	position: absolute;
 	border-color: green;
 	background-color: aqua;
-	border-width: 50px 10px 10px 10px;
+	border-width: 20px 5px 5px 5px;
 	border-style: solid;
 	touch-action: none;
-	width: 150px;
-	height: 100px;
   }
