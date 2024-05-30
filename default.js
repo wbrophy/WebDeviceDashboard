@@ -18,14 +18,14 @@ x_Dashboard =
 				fnv_iframe = document.createElement("iframe");
 				fnv_iframe.className = "SubDevice";
 				//fnv_iframe.onclick = function() { fnDeviceMenu(); };
-				fnv_div.appendChild(fnv_iframe);
+				fnv_childiFrame = fnv_div.appendChild(fnv_iframe);
 				fnv_div.addEventListener("mousemove", fnMoveDevice, false);
 				fnv_div.addEventListener("touchmove", fnMoveDevice, false);
 				fnv_Device = document.body.appendChild(fnv_div);
 				
 				if (fnv_iframeURL != null)
 					{
-						fnv_Device.src = fnv_iframeURL;
+						fnv_childiFrame.src = fnv_iframeURL;
 					}
 				return fnv_Device;
 			}
@@ -107,14 +107,17 @@ function fnMoveDevice()
 					{ //resize window from left side
 						event.target.style.left = "" + (event.target.offsetLeft + fnv_e.movementX) + "px";
 						event.target.style.width = "" + (fnv_e.movementX < 0 ? (fnVal(fnv_e.targetWidth) + Math.abs(fnv_e.movementX)) : (fnVal(fnv_e.targetWidth) - fnv_e.movementX))  + "px";
+						event.target.children[0].style.width = "" + (fnv_e.movementX < 0 ? (fnVal(fnv_e.targetWidth) + Math.abs(fnv_e.movementX)) : (fnVal(fnv_e.targetWidth) - fnv_e.movementX))  + "px";
 					}
 				else if (fnv_e.offsetY > 0 && fnv_e.offsetY < fnVal(fnv_e.targetHeight) && fnv_e.offsetX > 0)
 					{ //resize window from right side
 						event.target.style.width = "" + (fnVal(fnv_e.targetWidth) + fnv_e.movementX)  + "px";
+						event.target.children[0].style.width = "" + (fnVal(fnv_e.targetWidth) + fnv_e.movementX)  + "px";
 					}
 				else if (fnv_e.offsetY > fnVal(fnv_e.targetHeight) && fnv_e.offsetX > 0 && fnv_e.offsetX < fnVal(fnv_e.targetWidth))
 					{ //resize window from bottom
 						event.target.style.height = "" + (fnVal(fnv_e.targetHeight) + fnv_e.movementY)  + "px";
+						event.target.children[0].style.height = "" + (fnVal(fnv_e.targetHeight) + fnv_e.movementY)  + "px";
 					}
 				event.preventDefault();
 			}
